@@ -1,0 +1,50 @@
+{% load static %}
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<!--[if lt IE 9]>
+	<script src="dist/html5shiv.js"></script>
+	<![endif]-->
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>NitroVPN | Prices</title>
+	<link rel="stylesheet" href="{% static 'css3/style.css' %}">
+	<link href='http://fonts.googleapis.com/css?family=Open+Sans:400,700,300' rel='stylesheet' type='text/css'>
+</head>
+<body>
+	{% if request.user.is_authenticated %}
+		{% if request.user.is_active %}
+			<section id="pricePlans">
+				<ul id="plans">
+					<li class="plan">
+						{% for pl in form %}
+							{% if pl.title %}
+								<ul class="planContainer">
+									<li class="title"><h2>{{ pl.title }}</h2></li>
+									<li class="price"><p>{{ pl.months }}</p></li>
+									<li>
+										<ul class="options">
+											<li>{{ pl.users }}</span></li>
+											<li>{{ pl.speed }}</li>
+											<li>{{ pl.encryption }}</li>
+										</ul>
+									</li>
+									<li class="button"><a href="https://t.me/maeybeyes">Purchase</a></li>
+								</ul>
+							{% else %}
+								<h2>Sorry , We dont have service yet</h2>
+							{% endif %}
+						{% endfor %}
+					</li>
+				</ul> <!-- End ul#plans -->
+			</section>
+		{% else %}
+			<h2>Sorry your account banned from admins. Please contact <a href="https://t.me/maeybeyes">Us</a></h2>
+		{% endif %}
+	{% else %}
+		<head>
+			<meta http-equiv = "refresh" content = "3; url = {% url 'home' %}" />
+		</head>
+	{% endif %}
+</body>
+</html>
